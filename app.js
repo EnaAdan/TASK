@@ -9,6 +9,6 @@ const server = http.createServer((req, res) => {
         res.writeHead(404, 'Not Found', {'content-type': 'application/json'})
         res.end(JSON.stringify({
             message: 'sorry, you got lost!'
-        }))
+        })) 
     }
 });
