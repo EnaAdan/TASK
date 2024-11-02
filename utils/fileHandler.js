@@ -3,12 +3,15 @@ const path = require('path');
 
 const filepath = './data/tasks.json';
 
-const writeTaskToFile = (task) => {
+exports.writeTaskToFile = (task) => {
     fs.writeFilesync(filepath,  JSON.stringify(task))
 }
 
-const readTasksFromFile = () => {
+exports.readTasksFromFile = () => {
     if (!fs.existsSync(filepath)){
         writeTaskToFile([])
     }
+
+    const data = fs.readFilesync(filepath);
+    return JSON.parse(data)
 }
