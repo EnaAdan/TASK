@@ -20,13 +20,16 @@ exports.createTask = (req, res) => {
             
         }
 
+        const image = files.image[0]
+
         const tasks = readTasksFromFile()
+
         const newTask = {
             id: Date.now(),
             title: fields.status,
             description: fields.description || '',
             status: fields?.status || 'pending',
-            image: files.image? 'uploads/${files.image.name}' : null,
+            image: image ? '/uploads/${image.newFilename}' : null,
         }
 
         tasks.push(newTask);
@@ -34,7 +37,7 @@ exports.createTask = (req, res) => {
         writeTaskToFile(tasks);
 
         if(files.image) {
-            copyFilesync(files.image.path, path.join(__dirname, '../upload', files.image.name))
+            copyFilesync(image.filepath, path.join(__dirname, '../upload', image.newFilename));
             res.end(JSON.stringify(newTask))
         }
     })
